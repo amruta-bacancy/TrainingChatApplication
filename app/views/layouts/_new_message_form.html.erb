@@ -1,0 +1,16 @@
+<div class="form-group msg-form">
+  <%= form_with(model: [@single_room ,@message], remote: true, class: "d-flex" ) do |f| %>
+    <%= f.text_field :content, id: 'chat-text', class: "form-control msg-content setting", autocomplete: 'off', placeholder: 'Type a message here'%><br>
+    <%= f.file_field :header_image %><br>
+    <%= f.submit data: { disable_with: false }, class: "btn btn-success btn-color" %><br>
+  <% end %>
+</div>
+<style type="text/css">
+  .btn-color{
+    margin-bottom: 30px;
+
+  }
+  .setting{
+    width: 23%;
+  }
+</style>

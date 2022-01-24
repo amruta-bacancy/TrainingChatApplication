@@ -1,0 +1,82 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Chat application</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Users</a></li>
+      <li><a href="#">Groups</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="card backcolor">
+  <div class="col-md-2 bg-dark text-light backgcolor">
+    <div class="container">
+    <h5 class="design"> Hi <%= @current_user.username %> </h5></div>
+    <h4> Users </h4>
+    <div>
+      <%= turbo_stream_from "users" %>
+      <div id="users", class="btn btn-warning">
+        <%= render @users %>
+      </div>
+    </div>
+    <h4> Rooms </h4>
+    <%= render partial: "layouts/new_room_form" %>
+    <div> 
+      <%= turbo_stream_from "rooms" %><br>
+      <div id="rooms", class="btn btn-warning">
+        <%= render @rooms %>
+          <%= link_to 'Sign Out', signout_path,  :method => :delete %>
+
+      </div>
+    </div>
+  </div><br>
+
+  <div class="card">
+  <div class="col-md-10 bg-dark text-light backcolor">
+  <% if @single_room %>
+  <%= turbo_stream_from @single_room %>
+<div id="messages">
+
+<h4 class="text-center design"> <%= @user&.username || @single_room.name %> </h4>
+<h4 class="text-center"> <%#= @single_room.name %> </h4>
+	  <%= render @messages %>
+
+</div>
+<%= render partial: 'layouts/new_message_form' %>
+<h4 class="text-center"> <%#= @user&.username || @single_room.name %> </h4>
+<h4 class="text-center"> <%#= @single_room.name %> </h4>
+<%= @message.content %>
+<% end %>
+</div>
+</div>
+</div>
+
+<style>
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #595959;
+  color: white;
+  text-align: center;
+}
+.design{
+  font-weight: bold;
+}
+.backcolor{
+  background-color: #d6d6c2;
+  height: 100%;
+}
+.backgcolor{
+  background-color: #b3ccff;
+  height: 1500px;
+}
+</style>
+
+<div class="footer">
+  <p>Footer</p>
+</div>
